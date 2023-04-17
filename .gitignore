@@ -1,4 +1,7 @@
 venv
+data
+models
+reg_images
 __pycache__
 cudnn_windows
 .vscode
