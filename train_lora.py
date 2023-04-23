@@ -21,7 +21,8 @@ config = read_config(config_file_path)
 def train_model(config):
 
     # load config
-    print_only = config['print_only']
+    print_only = False
+    stop_text_encoder_training_pct = 0
     pretrained_model_name_or_path = config['pretrained_model_name_or_path']
     train_data_dir = config['train_data_dir']
     reg_data_dir = config['reg_data_dir']
@@ -89,8 +90,9 @@ def train_model(config):
     sample_every_n_epochs = config['sample_every_n_epochs']
     sample_sampler = config['sample_sampler']
     sample_prompts = config['sample_prompts']
-
-    print_only_bool = True if print_only.get('label') == 'True' else False
+    text_encoder_lr = config['text_encoder_lr']
+    unet_lr = config['unet_lr']
+    lr_warmup = config['lr_warmup']
 
     if pretrained_model_name_or_path == '':
         raise Exception('Source model information is missing')
@@ -387,7 +389,7 @@ def train_model(config):
 
 
 
-    if print_only_bool:
+    if print_only:
         print(
             '\033[93m\nHere is the trainer command as a reference. It will not be executed:\033[0m\n'
         )
@@ -437,3 +439,6 @@ def check_if_model_exist(output_name, output_dir, save_model_as):
         return False
 
     return False
+
+if __name__ == '__main__':
+    train_model(config)
