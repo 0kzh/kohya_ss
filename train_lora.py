@@ -148,6 +148,9 @@ def train_model(config):
         if os.path.isdir(os.path.join(train_data_dir, f))
     ]
 
+    # filter out subfolders that don't start with .
+    subfolders = [f for f in subfolders if f[0] != '.']
+
     total_steps = 0
 
     # Loop through each subfolder and extract the number of repeats
